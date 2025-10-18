@@ -1,0 +1,326 @@
+@prefix : <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
+@prefix lib: <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
+
+<https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> rdf:type owl:Ontology ;
+                                                                      owl:imports <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl> ;
+                                                                      rdfs:comment "Library Ontology created for Task f1 (TIES4520 2025 – University of Jyväskylä)" ;
+                                                                      owl:versionInfo "1.0" .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#gYear
+xsd:gYear rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#borrowedBy
+lib:borrowedBy rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain lib:Item ;
+               rdfs:range lib:Member ;
+               rdfs:comment "Each item can be borrowed by only one member at a time." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasISBN
+lib:hasISBN rdf:type owl:ObjectProperty ,
+                     owl:InverseFunctionalProperty ;
+            rdfs:domain lib:Book .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasLoan
+lib:hasLoan rdf:type owl:ObjectProperty ;
+            rdfs:domain lib:Member ;
+            rdfs:range lib:Loan ;
+            rdfs:comment "Connects members with their active loans." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasPublisher
+lib:hasPublisher rdf:type owl:ObjectProperty ;
+                 rdfs:domain lib:Item ;
+                 rdfs:range lib:Publisher ;
+                 rdfs:comment "Associates an item with its publisher." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasReservation
+lib:hasReservation rdf:type owl:ObjectProperty ;
+                   rdfs:domain lib:Member ;
+                   rdfs:range lib:Reservation ;
+                   rdfs:comment "Connects members with their reservations." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#manages
+lib:manages rdf:type owl:ObjectProperty ;
+            rdfs:domain lib:Librarian ;
+            rdfs:range lib:Section ;
+            rdfs:comment "Librarian manages a section." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#writtenBy
+lib:writtenBy rdf:type owl:ObjectProperty ;
+              rdfs:domain lib:Book ;
+              rdfs:range lib:Author ;
+              rdfs:comment "Links a book to its author." .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasAmount
+lib:hasAmount rdf:type owl:DatatypeProperty ;
+              rdfs:domain lib:Payment ;
+              rdfs:range xsd:decimal ;
+              rdfs:comment "Amount of a payment." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasDueDate
+lib:hasDueDate rdf:type owl:DatatypeProperty ;
+               rdfs:domain lib:Loan ;
+               rdfs:range xsd:date ;
+               rdfs:comment "Due date for a loaned item." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasEmail
+lib:hasEmail rdf:type owl:DatatypeProperty ;
+             rdfs:domain lib:Person ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Email address of a person." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasFineAmount
+lib:hasFineAmount rdf:type owl:DatatypeProperty ;
+                  rdfs:domain lib:Fine ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "Fine amount in euros." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasISBN
+lib:hasISBN rdf:type owl:DatatypeProperty ;
+            rdfs:range xsd:string .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasName
+lib:hasName rdf:type owl:DatatypeProperty ;
+            rdfs:domain lib:Person ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Name of a person." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasTitle
+lib:hasTitle rdf:type owl:DatatypeProperty ;
+             rdfs:domain lib:Item ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Title of the item." .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasYear
+lib:hasYear rdf:type owl:DatatypeProperty ;
+            rdfs:domain lib:Item ;
+            rdfs:range xsd:gYear ;
+            rdfs:comment "Publication year of an item." .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#AudioBook
+lib:AudioBook rdf:type owl:Class ;
+              rdfs:subClassOf lib:Item .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author
+lib:Author rdf:type owl:Class ;
+           rdfs:subClassOf lib:Person .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book
+lib:Book rdf:type owl:Class ;
+         rdfs:subClassOf lib:Item ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty lib:hasISBN ;
+                           owl:cardinality "1"^^xsd:nonNegativeInteger
+                         ] .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#EBook
+lib:EBook rdf:type owl:Class ;
+          rdfs:subClassOf lib:Item .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Event
+lib:Event rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Fine
+lib:Fine rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item
+lib:Item rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Journal
+lib:Journal rdf:type owl:Class ;
+            rdfs:subClassOf lib:Item .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Librarian
+lib:Librarian rdf:type owl:Class ;
+              rdfs:subClassOf lib:Person .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Library
+lib:Library rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan
+lib:Loan rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty lib:borrowedBy ;
+                           owl:allValuesFrom lib:Member
+                         ] .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Magazine
+lib:Magazine rdf:type owl:Class ;
+             rdfs:subClassOf lib:Item .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member
+lib:Member rdf:type owl:Class ;
+           rdfs:subClassOf lib:Person .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#MembershipType
+lib:MembershipType rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Class ;
+                                         owl:oneOf ( lib:Basic
+                                                     lib:Premium
+                                                     lib:VIP
+                                                   )
+                                       ] .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#NonMember
+lib:NonMember rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Class ;
+                                    owl:complementOf lib:Member
+                                  ] .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Payment
+lib:Payment rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person
+lib:Person rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#PrintedMaterial
+lib:PrintedMaterial rdf:type owl:Class ;
+                    owl:equivalentClass [ rdf:type owl:Class ;
+                                          owl:unionOf ( lib:Book
+                                                        lib:Journal
+                                                        lib:Magazine
+                                                      )
+                                        ] .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Publisher
+lib:Publisher rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Reservation
+lib:Reservation rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Section
+lib:Section rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Shelf
+lib:Shelf rdf:type owl:Class .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#StaffMember
+lib:StaffMember rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( lib:Librarian
+                                                           lib:Person
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author_001
+lib:Author_001 rdf:type owl:NamedIndividual ,
+                        lib:Author ;
+               lib:hasEmail "john.semantic@example.org" ;
+               lib:hasName "John Semantic" .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Basic
+lib:Basic rdf:type owl:NamedIndividual ,
+                   lib:MembershipType .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book_001
+lib:Book_001 rdf:type owl:NamedIndividual ,
+                      lib:Book ;
+             lib:borrowedBy lib:Member_001 ;
+             lib:writtenBy lib:Author_001 ;
+             lib:hasISBN "978-1234567890" ;
+             lib:hasTitle "Semantic Web for Beginners" ;
+             lib:hasYear "2022"^^xsd:gYear .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#CentralLibrary
+lib:CentralLibrary rdf:type owl:NamedIndividual ,
+                            lib:Library ;
+                   lib:hasName "Central City Library" .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member_001
+lib:Member_001 rdf:type owl:NamedIndividual ,
+                        lib:Member ;
+               lib:hasEmail "alice.reader@example.org" ;
+               lib:hasName "Alice Reader" .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Premium
+lib:Premium rdf:type owl:NamedIndividual ,
+                     lib:MembershipType .
+
+
+###  https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#VIP
+lib:VIP rdf:type owl:NamedIndividual ,
+                 lib:MembershipType .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+lib:hasISBN rdfs:comment "Unique ISBN identifier of a book." .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

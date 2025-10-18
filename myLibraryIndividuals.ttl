@@ -1,0 +1,67 @@
+@prefix inst: <https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#> .
+@prefix lib:  <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Individuals for Library Ontology (Task f3)
+#################################################################
+
+# ===== Libraries =====
+inst:CentralLibrary a lib:Library ;
+    lib:hasName "Central City Library" .
+
+inst:CommunityLibrary a lib:Library ;
+    lib:hasName "Community Branch Library" .
+
+# ===== Authors =====
+inst:Author_001 a lib:Author ;
+    lib:hasName "John Semantic" ;
+    lib:hasEmail "john.semantic@example.org" .
+
+inst:Author_002 a lib:Author ;
+    lib:hasName "Mary Ontology" ;
+    lib:hasEmail "mary.ontology@example.org" .
+
+# ===== Books =====
+inst:Book_001 a lib:Book ;
+    lib:hasTitle "Semantic Web for Beginners" ;
+    lib:hasYear "2022"^^xsd:gYear ;
+    lib:writtenBy inst:Author_001 ;
+    lib:hasISBN "978-1234567890" .
+
+inst:Book_002 a lib:Book ;
+    lib:hasTitle "Advanced Ontologies" ;
+    lib:hasYear "2023"^^xsd:gYear ;
+    lib:writtenBy inst:Author_002 ;
+    lib:hasISBN "978-9876543210" .
+
+# ===== Members =====
+inst:Member_001 a lib:Member ;
+    lib:hasName "Alice Reader" ;
+    lib:hasEmail "alice.reader@example.org" .
+
+inst:Member_002 a lib:Member ;
+    lib:hasName "Bob Knowledge" ;
+    lib:hasEmail "bob.knowledge@example.org" .
+
+# ===== Loans =====
+inst:Loan_001 a lib:Loan ;
+    lib:borrowedBy inst:Member_001 ;
+    lib:hasDueDate "2025-10-30"^^xsd:date .
+
+inst:Loan_002 a lib:Loan ;
+    lib:borrowedBy inst:Member_002 ;
+    lib:hasDueDate "2025-11-05"^^xsd:date .
+
+# ===== Linking Items to Loans =====
+inst:Member_001 lib:hasLoan inst:Loan_001 .
+inst:Member_002 lib:hasLoan inst:Loan_002 .
+inst:Book_001 lib:borrowedBy inst:Member_001 .
+inst:Book_002 lib:borrowedBy inst:Member_002 .
+
+#################################################################
+# END OF FILE
+#################################################################
+
