@@ -1,0 +1,142 @@
+<!-- Processed by Id: cwm.py,v 1.197 2007/12/13 15:38:39 syosi Exp -->
+<!--     using base file:///Users/sameer/opt/cwm-1.2.1s/tasksemi/-->
+
+
+<rdf:RDF xmlns="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#"
+    xmlns:lib="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#"
+    xmlns:log="http://www.w3.org/2000/10/swap/log#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+    <Author rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Author_001">
+        <hasEmail>john.semantic@example.org</hasEmail>
+        <hasName>John Semantic</hasName>
+        <isCoAuthorOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Author_002"/>
+    </Author>
+
+    <Author rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Author_002">
+        <hasEmail>mary.ontology@example.org</hasEmail>
+        <hasName>Mary Ontology</hasName>
+        <isCoAuthorOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Author_001"/>
+    </Author>
+
+    <Book rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Book_001">
+        <borrowedBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Member_001"/>
+        <hasISBN>978-1234567890</hasISBN>
+        <hasTitle>Semantic Web for Beginners</hasTitle>
+        <hasYear rdf:datatype="http://www.w3.org/2001/XMLSchema#gYear">2022</hasYear>
+        <writtenBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Author_001"/>
+    </Book>
+
+    <Book rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Book_002">
+        <borrowedBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Member_002"/>
+        <hasISBN>978-9876543210</hasISBN>
+        <hasTitle>Advanced Ontologies</hasTitle>
+        <hasYear rdf:datatype="http://www.w3.org/2001/XMLSchema#gYear">2023</hasYear>
+        <writtenBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Author_002"/>
+    </Book>
+
+    <Library rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#CentralLibrary">
+        <hasName>Central City Library</hasName>
+    </Library>
+
+    <Library rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#CommunityLibrary">
+        <hasName>Community Branch Library</hasName>
+    </Library>
+
+    <Loan rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_001">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#OverdueLoan"/>
+        <borrowedBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Member_001"/>
+        <hasDueDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-10-30</hasDueDate>
+    </Loan>
+
+    <Loan rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_002">
+        <borrowedBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Member_002"/>
+        <hasDueDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-11-05</hasDueDate>
+    </Loan>
+
+    <ActiveBorrower rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Member_001">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ActiveMember"/>
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+        <hasEmail>alice.reader@example.org</hasEmail>
+        <hasFine rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#AutoFineRecord"/>
+        <hasLoan rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_001"/>
+        <hasName>Alice Reader</hasName>
+    </ActiveBorrower>
+
+    <ActiveBorrower rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Member_002">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ActiveMember"/>
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+        <hasEmail>bob.knowledge@example.org</hasEmail>
+        <hasLoan rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_002"/>
+        <hasName>Bob Knowledge</hasName>
+    </ActiveBorrower>
+
+    <rdf:Description>
+        <log:is rdf:parseType="Quote">
+            <Loan rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_001">
+            </Loan>
+        </log:is>
+        <log:implies rdf:parseType="Quote">
+            <OverdueLoan rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_001">
+            </OverdueLoan>
+        </log:implies>
+    </rdf:Description>
+
+    <rdf:Description>
+        <log:is rdf:parseType="Quote">
+            <OverdueLoan rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_001">
+            </OverdueLoan>
+            <rdf:Description rdf:about="libraryRules.n3#m">
+                <hasLoan rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Loan_001"/>
+            </rdf:Description>
+        </log:is>
+        <log:implies rdf:parseType="Quote">
+            <rdf:Description rdf:about="libraryRules.n3#m">
+                <hasFine rdf:resource="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#AutoFineRecord"/>
+            </rdf:Description>
+        </log:implies>
+    </rdf:Description>
+
+    <rdf:Description>
+        <log:is rdf:parseType="Quote">
+            <Book rdf:about="libraryRules.n3#b">
+                <borrowedBy rdf:resource="libraryRules.n3#m"/>
+            </Book>
+        </log:is>
+        <log:implies rdf:parseType="Quote">
+            <ActiveBorrower rdf:about="libraryRules.n3#m">
+            </ActiveBorrower>
+        </log:implies>
+    </rdf:Description>
+
+    <rdf:Description>
+        <log:is rdf:parseType="Quote">
+            <Member rdf:about="libraryRules.n3#m">
+                <hasLoan rdf:resource="libraryRules.n3#l"/>
+            </Member>
+        </log:is>
+        <log:implies rdf:parseType="Quote">
+            <ActiveMember rdf:about="libraryRules.n3#m">
+            </ActiveMember>
+        </log:implies>
+    </rdf:Description>
+
+    <rdf:Description>
+        <log:is rdf:parseType="Quote">
+            <Book rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Book_001">
+                <writtenBy rdf:resource="libraryRules.n3#a1"/>
+            </Book>
+            <Book rdf:about="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#Book_002">
+                <writtenBy rdf:resource="libraryRules.n3#a2"/>
+            </Book>
+        </log:is>
+        <log:implies rdf:parseType="Quote">
+            <rdf:Description rdf:about="libraryRules.n3#a1">
+                <isCoAuthorOf rdf:resource="libraryRules.n3#a2"/>
+            </rdf:Description>
+            <rdf:Description rdf:about="libraryRules.n3#a2">
+                <isCoAuthorOf rdf:resource="libraryRules.n3#a1"/>
+            </rdf:Description>
+        </log:implies>
+    </rdf:Description>
+</rdf:RDF>

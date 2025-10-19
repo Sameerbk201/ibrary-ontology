@@ -1,0 +1,44 @@
+@prefix lib:  <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
+@prefix inst: <https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Rule 1: Member with a Loan → ActiveMember
+#################################################################
+{ ?m a lib:Member .
+  ?m lib:hasLoan ?l .
+}
+=> { ?m a lib:ActiveMember . } .
+
+#################################################################
+# Rule 2: Book borrowedBy someone → that someone is an ActiveBorrower
+#################################################################
+{ ?b a lib:Book .
+  ?b lib:borrowedBy ?m .
+}
+=> { ?m a lib:ActiveBorrower . } .
+
+#################################################################
+# Rule 3: (Concrete) Authors of Book_001 and Book_002 are co-authors
+#################################################################
+{ inst:Book_001 a lib:Book .
+  inst:Book_001 lib:writtenBy ?a1 .
+  inst:Book_002 a lib:Book .
+  inst:Book_002 lib:writtenBy ?a2 .
+}
+=> { ?a1 lib:isCoAuthorOf ?a2 .
+     ?a2 lib:isCoAuthorOf ?a1 . } .
+
+#################################################################
+# Rule 4: (Concrete) Mark Loan_001 as Overdue
+#################################################################
+{ inst:Loan_001 a lib:Loan . }
+=> { inst:Loan_001 a lib:OverdueLoan . } .
+
+#################################################################
+# Rule 5: OverdueLoan borrower → hasFine AutoFineRecord
+#################################################################
+{ inst:Loan_001 a lib:OverdueLoan .
+  ?m lib:hasLoan inst:Loan_001 .
+}
+=> { ?m lib:hasFine inst:AutoFineRecord . } .
