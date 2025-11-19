@@ -3,163 +3,215 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:lib="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#"
       xmlns:inst="https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#"
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-      xml:lang="en" lang="en">
+      xml:lang="en">
 
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<title>Library Information – RDFa Version</title>
-<style type="text/css">
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 2em;
-    background-color: #fafafa;
-    color: #222;
-  }
-  h1, h2 {
-    color: #004080;
-  }
-  table {
-    border-collapse: collapse;
-    width: 95%;
-    margin-bottom: 2em;
-  }
-  th, td {
-    border: 1px solid #ccc;
-    padding: 8px 12px;
-    text-align: left;
-  }
-  th {
-    background-color: #e9e9e9;
-  }
-  caption {
-    caption-side: top;
-    font-weight: bold;
-    margin-bottom: .4em;
-  }
-  footer {
-    border-top: 1px solid #ccc;
-    margin-top: 3em;
-    padding-top: 1em;
-    font-size: 0.9em;
-    color: #555;
-  }
-</style>
-</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Library – RDFa Presentation (Task F6)</title>
+  </head>
 
-<body vocab="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#">
-<h1>Library Information – RDFa Embedded Version</h1>
+  <body prefix="
+      lib: https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#
+      inst: https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#
+    ">
 
-<!-- Libraries -->
-<section about="inst:CentralLibrary" typeof="lib:Library">
-  <h2 property="lib:hasName">Central City Library</h2>
-  <ul>
-    <li about="inst:CommunityLibrary" typeof="lib:Library">
-      <span property="lib:hasName">Community Branch Library</span>
-    </li>
-  </ul>
-</section>
+    <h1>Library Dataset (Task F6 – XHTML + RDFa)</h1>
 
-<!-- Books and Authors -->
-<section>
-  <h2>Books and Authors</h2>
-  <table>
-    <caption>Books available in the Library</caption>
-    <thead>
-      <tr>
-        <th>Book Title</th>
-        <th>Publication Year</th>
-        <th>Author</th>
-        <th>Borrowed By</th>
-        <th>Due Date</th>
-      </tr>
-    </thead>
-    <tbody>
+    <p>
+      This XHTML page displays the library individuals from
+      <code>myLibraryIndividuals.ttl</code> in a human-readable layout,
+      enriched with RDFa attributes so that the same RDF data is machine-readable.
+    </p>
 
-      <!-- Book 001 -->
-      <tr about="inst:Book_001" typeof="lib:Book">
-        <td property="lib:hasTitle">Semantic Web for Beginners</td>
-        <td property="lib:hasYear" datatype="xsd:gYear">2022</td>
-        <td rel="lib:writtenBy" resource="inst:Author_001">
-          <span about="inst:Author_001" typeof="lib:Author" property="lib:hasName">John Semantic</span>
-        </td>
-        <td rel="lib:borrowedBy" resource="inst:Member_001">
-          <span about="inst:Member_001" typeof="lib:Member" property="lib:hasName">Alice Reader</span>
-        </td>
-        <td>
-          <span about="inst:Loan_001" typeof="lib:Loan"
-                property="lib:hasDueDate" datatype="xsd:date">2025-10-30</span>
-        </td>
-      </tr>
+    <!-- ========================================================= -->
+    <!--                         LIBRARIES                         -->
+    <!-- ========================================================= -->
 
-      <!-- Book 002 -->
-      <tr about="inst:Book_002" typeof="lib:Book">
-        <td property="lib:hasTitle">Advanced Ontologies</td>
-        <td property="lib:hasYear" datatype="xsd:gYear">2023</td>
-        <td rel="lib:writtenBy" resource="inst:Author_002">
-          <span about="inst:Author_002" typeof="lib:Author" property="lib:hasName">Mary Ontology</span>
-        </td>
-        <td rel="lib:borrowedBy" resource="inst:Member_002">
-          <span about="inst:Member_002" typeof="lib:Member" property="lib:hasName">Bob Knowledge</span>
-        </td>
-        <td>
-          <span about="inst:Loan_002" typeof="lib:Loan"
-                property="lib:hasDueDate" datatype="xsd:date">2025-11-05</span>
-        </td>
-      </tr>
+    <h2>Libraries</h2>
 
-    </tbody>
-  </table>
-</section>
+    <div about="inst:CentralLibrary" typeof="lib:Library">
+      <h3 property="lib:hasName">Central City Library</h3>
+      <p>
+        URI:
+        <code>inst:CentralLibrary</code>
+      </p>
+    </div>
 
-<!-- Members -->
-<section>
-  <h2>Members</h2>
-  <table>
-    <caption>Registered Members</caption>
-    <thead>
-      <tr><th>Member Name</th><th>Email</th></tr>
-    </thead>
-    <tbody>
-      <tr about="inst:Member_001" typeof="lib:Member">
-        <td property="lib:hasName">Alice Reader</td>
-        <td property="lib:hasEmail">alice.reader@example.org</td>
-      </tr>
-      <tr about="inst:Member_002" typeof="lib:Member">
-        <td property="lib:hasName">Bob Knowledge</td>
-        <td property="lib:hasEmail">bob.knowledge@example.org</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+    <div about="inst:CommunityLibrary" typeof="lib:Library">
+      <h3 property="lib:hasName">Community Branch Library</h3>
+      <p>
+        URI:
+        <code>inst:CommunityLibrary</code>
+      </p>
+    </div>
 
-<!-- Authors -->
-<section>
-  <h2>Authors</h2>
-  <table>
-    <caption>Authors and Contact Information</caption>
-    <thead>
-      <tr><th>Author Name</th><th>Email</th></tr>
-    </thead>
-    <tbody>
-      <tr about="inst:Author_001" typeof="lib:Author">
-        <td property="lib:hasName">John Semantic</td>
-        <td property="lib:hasEmail">john.semantic@example.org</td>
-      </tr>
-      <tr about="inst:Author_002" typeof="lib:Author">
-        <td property="lib:hasName">Mary Ontology</td>
-        <td property="lib:hasEmail">mary.ontology@example.org</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+    <!-- ========================================================= -->
+    <!--                          AUTHORS                          -->
+    <!-- ========================================================= -->
 
-<footer>
-  <p>
-    TIES4520 – Semantic Technologies for Developers (Autumn 2025)<br />
-    University of Jyväskylä · Author: Sameer Karn
-  </p>
-</footer>
+    <h2>Authors</h2>
 
-</body>
+    <div about="inst:Author_001" typeof="lib:Author">
+      <h3 property="lib:hasName">John Semantic</h3>
+      <p>
+        Email:
+        <span property="lib:hasEmail">john.semantic@example.org</span>
+      </p>
+    </div>
+
+    <div about="inst:Author_002" typeof="lib:Author">
+      <h3 property="lib:hasName">Mary Ontology</h3>
+      <p>
+        Email:
+        <span property="lib:hasEmail">mary.ontology@example.org</span>
+      </p>
+    </div>
+
+    <div about="inst:Author_003" typeof="lib:Author">
+      <h3 property="lib:hasName">Lisa Knowledge</h3>
+      <p>
+        Email:
+        <span property="lib:hasEmail">lisa.knowledge@example.org</span>
+      </p>
+    </div>
+
+    <!-- ========================================================= -->
+    <!--                            BOOKS                          -->
+    <!-- ========================================================= -->
+
+    <h2>Books</h2>
+
+    <table border="1" cellspacing="0" cellpadding="6">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Title</th>
+          <th>Year</th>
+          <th>Author</th>
+          <th>ISBN</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Book 001 -->
+        <tr about="inst:Book_001" typeof="lib:Book">
+          <td><code>inst:Book_001</code></td>
+          <td property="lib:hasTitle">Semantic Web for Beginners</td>
+          <td property="lib:hasYear"
+              datatype="http://www.w3.org/2001/XMLSchema#gYear">2022</td>
+          <td>
+            <span rel="lib:writtenBy" resource="inst:Author_001">
+              <span about="inst:Author_001"
+                    typeof="lib:Author"
+                    property="lib:hasName">John Semantic</span>
+            </span>
+          </td>
+          <td property="lib:hasISBN">978-1234567890</td>
+        </tr>
+
+        <!-- Book 002 -->
+        <tr about="inst:Book_002" typeof="lib:Book">
+          <td><code>inst:Book_002</code></td>
+          <td property="lib:hasTitle">Advanced Ontologies</td>
+          <td property="lib:hasYear"
+              datatype="http://www.w3.org/2001/XMLSchema#gYear">2023</td>
+          <td>
+            <span rel="lib:writtenBy" resource="inst:Author_002">
+              <span about="inst:Author_002"
+                    typeof="lib:Author"
+                    property="lib:hasName">Mary Ontology</span>
+            </span>
+          </td>
+          <td property="lib:hasISBN">978-9876543210</td>
+        </tr>
+
+        <!-- Book 003 -->
+        <tr about="inst:Book_003" typeof="lib:Book">
+          <td><code>inst:Book_003</code></td>
+          <td property="lib:hasTitle">Knowledge Engineering Guide</td>
+          <td property="lib:hasYear"
+              datatype="http://www.w3.org/2001/XMLSchema#gYear">2024</td>
+          <td>
+            <span rel="lib:writtenBy" resource="inst:Author_003">
+              <span about="inst:Author_003"
+                    typeof="lib:Author"
+                    property="lib:hasName">Lisa Knowledge</span>
+            </span>
+          </td>
+          <td property="lib:hasISBN">978-5556667778</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <!-- ========================================================= -->
+    <!--                     MEMBERS AND LOANS                     -->
+    <!-- ========================================================= -->
+
+    <h2>Members and Their Loans</h2>
+
+    <!-- Member 001 -->
+    <div about="inst:Member_001" typeof="lib:Member">
+      <h3>
+        Member:
+        <span property="lib:hasName">Alice Reader</span>
+      </h3>
+      <p>
+        Email:
+        <span property="lib:hasEmail">alice.reader@example.org</span>
+      </p>
+      <div rel="lib:hasLoan" resource="inst:Loan_001">
+        <p about="inst:Loan_001" typeof="lib:Loan">
+          Loan:
+          <code>inst:Loan_001</code><br />
+          Due Date:
+          <span property="lib:hasDueDate"
+                datatype="http://www.w3.org/2001/XMLSchema#date">2025-10-30</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 002 -->
+    <div about="inst:Member_002" typeof="lib:Member">
+      <h3>
+        Member:
+        <span property="lib:hasName">Bob Knowledge</span>
+      </h3>
+      <p>
+        Email:
+        <span property="lib:hasEmail">bob.knowledge@example.org</span>
+      </p>
+      <div rel="lib:hasLoan" resource="inst:Loan_002">
+        <p about="inst:Loan_002" typeof="lib:Loan">
+          Loan:
+          <code>inst:Loan_002</code><br />
+          Due Date:
+          <span property="lib:hasDueDate"
+                datatype="http://www.w3.org/2001/XMLSchema#date">2025-11-05</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 003 -->
+    <div about="inst:Member_003" typeof="lib:Member">
+      <h3>
+        Member:
+        <span property="lib:hasName">Charlie Semantic</span>
+      </h3>
+      <p>
+        Email:
+        <span property="lib:hasEmail">charlie.semantic@example.org</span>
+      </p>
+      <div rel="lib:hasLoan" resource="inst:Loan_003">
+        <p about="inst:Loan_003" typeof="lib:Loan">
+          Loan:
+          <code>inst:Loan_003</code><br />
+          Due Date:
+          <span property="lib:hasDueDate"
+                datatype="http://www.w3.org/2001/XMLSchema#date">2025-12-01</span>
+        </p>
+      </div>
+    </div>
+
+  </body>
 </html>
