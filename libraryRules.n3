@@ -1,44 +1,119 @@
-@prefix lib:  <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
-@prefix inst: <https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#> .
-@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix lib:    <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#> .
+@prefix inst:   <https://sameerbk201.github.io/ibrary-ontology/myLibraryIndividuals.ttl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix log:    <http://www.w3.org/2000/10/swap/log#> .
+@prefix string: <http://www.w3.org/2000/10/swap/string#> .
 
 #################################################################
-# Rule 1: Member with a Loan → ActiveMember
+# RULE 1: Members with Loans → ActiveMember
+#
+# PURPOSE:
+#   A Member who currently has at least one loan should be marked
+#   as an ActiveMember.
+#
+# INPUT PATTERN (example data from individuals):
+#   inst:Alice a lib:Member ;
+#               lib:hasLoan inst:Loan01 .
+#
+# OUTPUT EXPECTED:
+#   inst:Alice a lib:ActiveMember .
 #################################################################
-{ ?m a lib:Member .
-  ?m lib:hasLoan ?l .
+
+{ ?m a lib:Member ;
+      lib:hasLoan ?loan .
 }
 => { ?m a lib:ActiveMember . } .
 
+
 #################################################################
-# Rule 2: Book borrowedBy someone → that someone is an ActiveBorrower
+# RULE 2: Borrowers of Books → ActiveBorrower
+#
+# PURPOSE:
+#   If someone borrowed a book, infer they are an ActiveBorrower.
+#
+# INPUT:
+#   inst:Book01 a lib:Book ;
+#               lib:borrowedBy inst:Alice .
+#
+# OUTPUT:
+#   inst:Alice a lib:ActiveBorrower .
 #################################################################
-{ ?b a lib:Book .
-  ?b lib:borrowedBy ?m .
+
+{ ?book a lib:Book ;
+         lib:borrowedBy ?m .
 }
 => { ?m a lib:ActiveBorrower . } .
 
+
 #################################################################
-# Rule 3: (Concrete) Authors of Book_001 and Book_002 are co-authors
+# RULE 3: Co-Author Relationship Between Authors
+#
+# PURPOSE:
+#   If two different books are written by two different authors,
+#   infer that those authors co-author (collaborate).
+#
+# INPUT:
+#   inst:B1 lib:writtenBy inst:AuthorA .
+#   inst:B2 lib:writtenBy inst:AuthorB .
+#
+# OUTPUT:
+#   inst:AuthorA lib:isCoAuthorOf inst:AuthorB .
+#
+# NOTE:
+#   Filter ensures books are different: ?b1 log:notEqualTo ?b2
 #################################################################
-{ inst:Book_001 a lib:Book .
-  inst:Book_001 lib:writtenBy ?a1 .
-  inst:Book_002 a lib:Book .
-  inst:Book_002 lib:writtenBy ?a2 .
+
+{ ?b1 a lib:Book ;
+      lib:writtenBy ?a1 .
+  ?b2 a lib:Book ;
+      lib:writtenBy ?a2 .
+  ?b1 log:notEqualTo ?b2 .
 }
-=> { ?a1 lib:isCoAuthorOf ?a2 .
-     ?a2 lib:isCoAuthorOf ?a1 . } .
+=> { ?a1 lib:isCoAuthorOf ?a2 . } .
+
 
 #################################################################
-# Rule 4: (Concrete) Mark Loan_001 as Overdue
+# RULE 4: Overdue Loans based on Due Date
+#
+# PURPOSE:
+#   A loan with a due date before a fixed threshold date becomes
+#   an OverdueLoan.
+#
+# IMPORTANT:
+#   Uses string:lessThan because CWM compares literal strings,
+#   not typed xsd:date values.
+#
+# INPUT:
+#   inst:Loan01 lib:hasDueDate "2025-10-10" .
+#
+# OUTPUT:
+#   inst:Loan01 a lib:OverdueLoan .
 #################################################################
-{ inst:Loan_001 a lib:Loan . }
-=> { inst:Loan_001 a lib:OverdueLoan . } .
+
+{ ?loan a lib:Loan ;
+        lib:hasDueDate ?d .
+  ?d string:lessThan "2025-11-01" .
+}
+=> { ?loan a lib:OverdueLoan . } .
+
 
 #################################################################
-# Rule 5: OverdueLoan borrower → hasFine AutoFineRecord
+# RULE 5: Borrowers of Overdue Loans → Assigned a Fine
+#
+# PURPOSE:
+#   Anyone who has an overdue loan receives an automatic fine
+#   instance.
+#
+# INPUT:
+#   inst:Loan01 a lib:OverdueLoan .
+#   inst:Alice lib:hasLoan inst:Loan01 .
+#
+# OUTPUT:
+#   inst:Alice lib:hasFine inst:AutoFineRecord .
 #################################################################
-{ inst:Loan_001 a lib:OverdueLoan .
-  ?m lib:hasLoan inst:Loan_001 .
+
+{ ?loan a lib:OverdueLoan .
+  ?m lib:hasLoan ?loan .
 }
 => { ?m lib:hasFine inst:AutoFineRecord . } .
