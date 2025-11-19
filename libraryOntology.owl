@@ -1,0 +1,532 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#"
+     xml:base="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl"
+     xmlns:lib="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl">
+        <rdfs:comment>Library Ontology created for Tasks (TIES4520 2025 – University of Jyväskylä)</rdfs:comment>
+        <owl:versionInfo>1.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#gYear -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#gYear"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#borrowedBy -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#borrowedBy">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+        <rdfs:comment>Each item can be borrowed by only one member at a time.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasLoan -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasLoan">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan"/>
+        <rdfs:comment>Connects members with their active loans.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasPublisher -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasPublisher">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Publisher"/>
+        <rdfs:comment>Associates an item with its publisher.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasReservation -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasReservation">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Reservation"/>
+        <rdfs:comment>Connects members with their reservations.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#identifiedByISBN -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#identifiedByISBN">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ISBNIdentifier"/>
+        <rdfs:comment>Links a book to its unique ISBN identifier individual.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#manages -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#manages">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Librarian"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Section"/>
+        <rdfs:comment>Librarian manages a section.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#writtenBy -->
+
+    <owl:ObjectProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#writtenBy">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book"/>
+        <rdfs:range rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author"/>
+        <rdfs:comment>Links a book to its author.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasAmount -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasAmount">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Payment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Amount of a payment.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasDueDate -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasDueDate">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+        <rdfs:comment>Due date for a loaned item.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasEmail -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasEmail">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Email address of a person.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasFineAmount -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasFineAmount">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Fine"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Fine amount in euros.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasISBN -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasISBN">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ISBNIdentifier"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Literal ISBN string representing the identifier.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasName -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasName">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Name of a person.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasTitle -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasTitle">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Title of the item.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasYear -->
+
+    <owl:DatatypeProperty rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#hasYear">
+        <rdfs:domain rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+        <rdfs:comment>Publication year of an item.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#AudioBook -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#AudioBook">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#identifiedByISBN"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#EBook -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#EBook">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Event -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Event"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Fine -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Fine"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ISBNIdentifier -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ISBNIdentifier"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Journal -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Journal">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Librarian -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Librarian">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Library -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Library"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#borrowedBy"/>
+                <owl:allValuesFrom rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Magazine -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Magazine">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Item"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member">
+        <rdfs:subClassOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#MembershipType -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#MembershipType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Basic"/>
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Premium"/>
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#VIP"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#NonMember -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#NonMember">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:complementOf rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Payment -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Payment"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#PrintedMaterial -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#PrintedMaterial">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book"/>
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Journal"/>
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Magazine"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Publisher -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Publisher"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Reservation -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Reservation"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Section -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Section"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Shelf -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Shelf"/>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#StaffMember -->
+
+    <owl:Class rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#StaffMember">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Librarian"/>
+                    <rdf:Description rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Person"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author_001 -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author_001">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author"/>
+        <hasEmail>john.semantic@example.org</hasEmail>
+        <hasName>John Semantic</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Basic -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Basic">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#MembershipType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book_001 -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book_001">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Book"/>
+        <borrowedBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member_001"/>
+        <identifiedByISBN rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#isbn_978_1234567890"/>
+        <writtenBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Author_001"/>
+        <hasTitle>Semantic Web for Beginners</hasTitle>
+        <hasYear rdf:datatype="http://www.w3.org/2001/XMLSchema#gYear">2022</hasYear>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#CentralLibrary -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#CentralLibrary">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Library"/>
+        <hasName>Central City Library</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan_001 -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan_001">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan"/>
+        <borrowedBy rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member_001"/>
+        <hasDueDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-12-15</hasDueDate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member_001 -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member_001">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Member"/>
+        <hasLoan rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Loan_001"/>
+        <hasEmail>alice.reader@example.org</hasEmail>
+        <hasName>Alice Reader</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Premium -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#Premium">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#MembershipType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#VIP -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#VIP">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#MembershipType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#isbn_978_1234567890 -->
+
+    <owl:NamedIndividual rdf:about="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#isbn_978_1234567890">
+        <rdf:type rdf:resource="https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl#ISBNIdentifier"/>
+        <hasISBN>978-1234567890</hasISBN>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
