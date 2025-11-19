@@ -8,14 +8,20 @@
 # Individuals for Library Ontology (Task f3)
 #################################################################
 
-# ===== Libraries =====
+##############
+# Libraries
+##############
+
 inst:CentralLibrary a lib:Library ;
     lib:hasName "Central City Library" .
 
 inst:CommunityLibrary a lib:Library ;
     lib:hasName "Community Branch Library" .
 
-# ===== Authors =====
+##############
+# Authors
+##############
+
 inst:Author_001 a lib:Author ;
     lib:hasName "John Semantic" ;
     lib:hasEmail "john.semantic@example.org" .
@@ -24,7 +30,14 @@ inst:Author_002 a lib:Author ;
     lib:hasName "Mary Ontology" ;
     lib:hasEmail "mary.ontology@example.org" .
 
-# ===== Books =====
+inst:Author_003 a lib:Author ;
+    lib:hasName "Lisa Knowledge" ;
+    lib:hasEmail "lisa.knowledge@example.org" .
+
+##############
+# Books
+##############
+
 inst:Book_001 a lib:Book ;
     lib:hasTitle "Semantic Web for Beginners" ;
     lib:hasYear "2022"^^xsd:gYear ;
@@ -37,7 +50,16 @@ inst:Book_002 a lib:Book ;
     lib:writtenBy inst:Author_002 ;
     lib:hasISBN "978-9876543210" .
 
-# ===== Members =====
+inst:Book_003 a lib:Book ;
+    lib:hasTitle "Knowledge Engineering Guide" ;
+    lib:hasYear "2024"^^xsd:gYear ;
+    lib:writtenBy inst:Author_003 ;
+    lib:hasISBN "978-5556667778" .
+
+##############
+# Members
+##############
+
 inst:Member_001 a lib:Member ;
     lib:hasName "Alice Reader" ;
     lib:hasEmail "alice.reader@example.org" .
@@ -46,7 +68,14 @@ inst:Member_002 a lib:Member ;
     lib:hasName "Bob Knowledge" ;
     lib:hasEmail "bob.knowledge@example.org" .
 
-# ===== Loans =====
+inst:Member_003 a lib:Member ;
+    lib:hasName "Charlie Semantic" ;
+    lib:hasEmail "charlie.semantic@example.org" .
+
+##############
+# Loans
+##############
+
 inst:Loan_001 a lib:Loan ;
     lib:borrowedBy inst:Member_001 ;
     lib:hasDueDate "2025-10-30"^^xsd:date .
@@ -55,13 +84,26 @@ inst:Loan_002 a lib:Loan ;
     lib:borrowedBy inst:Member_002 ;
     lib:hasDueDate "2025-11-05"^^xsd:date .
 
-# ===== Linking Items to Loans =====
+inst:Loan_003 a lib:Loan ;
+    lib:borrowedBy inst:Member_003 ;
+    lib:hasDueDate "2025-12-01"^^xsd:date .
+
+##############
+# Linking Members to Loans
+##############
+
 inst:Member_001 lib:hasLoan inst:Loan_001 .
 inst:Member_002 lib:hasLoan inst:Loan_002 .
+inst:Member_003 lib:hasLoan inst:Loan_003 .
+
+##############
+# Linking Books to Loans (Functional borrowedBy respected!)
+##############
+
 inst:Book_001 lib:borrowedBy inst:Member_001 .
 inst:Book_002 lib:borrowedBy inst:Member_002 .
+inst:Book_003 lib:borrowedBy inst:Member_003 .
 
 #################################################################
 # END OF FILE
 #################################################################
-

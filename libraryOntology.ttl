@@ -4,10 +4,14 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-lib: a owl:Ontology ;
-    rdfs:comment "Library Ontology created for Task f1 (TIES4520 2025 – University of Jyväskylä)" ;
-    owl:versionInfo "1.0" ;
-    owl:imports <https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl> .
+#################################################################
+# ONTOLOGY HEADER
+#################################################################
+
+<https://sameerbk201.github.io/ibrary-ontology/libraryOntology.ttl>
+    a owl:Ontology ;
+    rdfs:comment "Library Ontology created for Tasks (TIES4520 2025 – University of Jyväskylä)" ;
+    owl:versionInfo "1.0" .
 
 #################################################################
 # CLASSES (≥ 20)
@@ -16,31 +20,52 @@ lib: a owl:Ontology ;
 # Core
 lib:Library a owl:Class .
 lib:Item a owl:Class .
-lib:Book a owl:Class ; rdfs:subClassOf lib:Item .
-lib:Journal a owl:Class ; rdfs:subClassOf lib:Item .
-lib:Magazine a owl:Class ; rdfs:subClassOf lib:Item .
-lib:EBook a owl:Class ; rdfs:subClassOf lib:Item .
-lib:AudioBook a owl:Class ; rdfs:subClassOf lib:Item .
+lib:Book a owl:Class ;
+    rdfs:subClassOf lib:Item .
+lib:Journal a owl:Class ;
+    rdfs:subClassOf lib:Item .
+lib:Magazine a owl:Class ;
+    rdfs:subClassOf lib:Item .
+lib:EBook a owl:Class ;
+    rdfs:subClassOf lib:Item .
+lib:AudioBook a owl:Class ;
+    rdfs:subClassOf lib:Item .
 lib:Section a owl:Class .
 lib:Shelf a owl:Class .
 lib:Publisher a owl:Class .
 
 # People
 lib:Person a owl:Class .
-lib:Author a owl:Class ; rdfs:subClassOf lib:Person .
-lib:Member a owl:Class ; rdfs:subClassOf lib:Person .
-lib:Librarian a owl:Class ; rdfs:subClassOf lib:Person .
-lib:StaffMember a owl:Class ;
-    owl:intersectionOf (lib:Person lib:Librarian) .  # Intersection example
-lib:NonMember a owl:Class ;
-    owl:complementOf lib:Member .                   # Complement example
+lib:Author a owl:Class ;
+    rdfs:subClassOf lib:Person .
+lib:Member a owl:Class ;
+    rdfs:subClassOf lib:Person .
+lib:Librarian a owl:Class ;
+    rdfs:subClassOf lib:Person .
 
-# Activities
+# Intersection class – StaffMember = Person ∩ Librarian
+lib:StaffMember a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf ( lib:Person lib:Librarian )
+    ] .
+
+# Complement class – NonMember = ¬ Member
+lib:NonMember a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:complementOf lib:Member
+    ] .
+
+# Activities / processes
 lib:Loan a owl:Class .
 lib:Reservation a owl:Class .
 lib:Fine a owl:Class .
 lib:Payment a owl:Class .
 lib:Event a owl:Class .
+
+# Identifier class (for ISBN)
+lib:ISBNIdentifier a owl:Class .
 
 #################################################################
 # ENUMERATION CLASS
@@ -49,9 +74,14 @@ lib:Event a owl:Class .
 lib:MembershipType a owl:Class ;
     owl:oneOf ( lib:Basic lib:Premium lib:VIP ) .
 
-lib:Basic a owl:NamedIndividual , lib:MembershipType .
-lib:Premium a owl:NamedIndividual , lib:MembershipType .
-lib:VIP a owl:NamedIndividual , lib:MembershipType .
+lib:Basic a owl:NamedIndividual ,
+            lib:MembershipType .
+
+lib:Premium a owl:NamedIndividual ,
+              lib:MembershipType .
+
+lib:VIP a owl:NamedIndividual ,
+          lib:MembershipType .
 
 #################################################################
 # OBJECT PROPERTIES (≥ 7)
@@ -67,7 +97,8 @@ lib:hasPublisher a owl:ObjectProperty ;
     rdfs:range lib:Publisher ;
     rdfs:comment "Associates an item with its publisher." .
 
-lib:borrowedBy a owl:ObjectProperty , owl:FunctionalProperty ;
+lib:borrowedBy a owl:ObjectProperty ,
+                 owl:FunctionalProperty ;
     rdfs:domain lib:Item ;
     rdfs:range lib:Member ;
     rdfs:comment "Each item can be borrowed by only one member at a time." .
@@ -87,10 +118,12 @@ lib:hasReservation a owl:ObjectProperty ;
     rdfs:range lib:Reservation ;
     rdfs:comment "Connects members with their reservations." .
 
-lib:hasISBN a owl:ObjectProperty , owl:InverseFunctionalProperty ;
+# Inverse functional object property – ISBN identifier
+lib:identifiedByISBN a owl:ObjectProperty ,
+                       owl:InverseFunctionalProperty ;
     rdfs:domain lib:Book ;
-    rdfs:range xsd:string ;
-    rdfs:comment "Unique ISBN identifier of a book." .
+    rdfs:range lib:ISBNIdentifier ;
+    rdfs:comment "Links a book to its unique ISBN identifier individual." .
 
 #################################################################
 # DATATYPE PROPERTIES (≥ 7)
@@ -131,52 +164,68 @@ lib:hasEmail a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:comment "Email address of a person." .
 
+# Datatype property for the literal ISBN string
+lib:hasISBN a owl:DatatypeProperty ;
+    rdfs:domain lib:ISBNIdentifier ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Literal ISBN string representing the identifier." .
+
 #################################################################
 # CLASS RESTRICTIONS
 #################################################################
 
-# Cardinality restriction – Book must have exactly one ISBN
+# Cardinality restriction – Book must have exactly one ISBN identifier
 lib:Book rdfs:subClassOf [
     a owl:Restriction ;
-    owl:onProperty lib:hasISBN ;
+    owl:onProperty lib:identifiedByISBN ;
     owl:cardinality "1"^^xsd:nonNegativeInteger
 ] .
 
-# Range restriction – Loan borrowedBy only Member
+# Range restriction via class restriction – any borrowedBy of a Loan is a Member
 lib:Loan rdfs:subClassOf [
     a owl:Restriction ;
     owl:onProperty lib:borrowedBy ;
     owl:allValuesFrom lib:Member
 ] .
 
-# Union class – PrintedMaterial
+# Union class – PrintedMaterial = Book ∪ Journal ∪ Magazine
 lib:PrintedMaterial a owl:Class ;
-    owl:unionOf (lib:Book lib:Journal lib:Magazine) .
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf ( lib:Book lib:Journal lib:Magazine )
+    ] .
 
 #################################################################
-# EXAMPLE INDIVIDUALS (optional for testing)
+# EXAMPLE INDIVIDUALS (for testing)
 #################################################################
 
 lib:CentralLibrary a lib:Library ;
     lib:hasName "Central City Library" .
 
-lib:Book_001 a lib:Book ;
-    lib:hasTitle "Semantic Web for Beginners" ;
-    lib:hasYear "2022"^^xsd:gYear .
-
 lib:Author_001 a lib:Author ;
     lib:hasName "John Semantic" ;
     lib:hasEmail "john.semantic@example.org" .
 
-lib:Book_001 lib:writtenBy lib:Author_001 .
-lib:Book_001 lib:hasISBN "978-1234567890" .
-lib:Book_001 lib:borrowedBy lib:Member_001 .
-
 lib:Member_001 a lib:Member ;
     lib:hasName "Alice Reader" ;
-    lib:hasEmail "alice.reader@example.org" .
+    lib:hasEmail "alice.reader@example.org" ;
+    lib:hasLoan lib:Loan_001 .
+
+lib:Loan_001 a lib:Loan ;
+    lib:borrowedBy lib:Member_001 ;
+    lib:hasDueDate "2025-12-15"^^xsd:date .
+
+# ISBN identifier individual
+lib:isbn_978_1234567890 a lib:ISBNIdentifier ;
+    lib:hasISBN "978-1234567890" .
+
+lib:Book_001 a lib:Book ;
+    lib:hasTitle "Semantic Web for Beginners" ;
+    lib:hasYear "2022"^^xsd:gYear ;
+    lib:writtenBy lib:Author_001 ;
+    lib:identifiedByISBN lib:isbn_978_1234567890 ;
+    lib:borrowedBy lib:Member_001 .
 
 #################################################################
 # END OF FILE
 #################################################################
-
